@@ -1,24 +1,49 @@
-## Research Questions
+## Workflow
 
-**Main question:**
-How are Asian, mughal, and Ancient Near Eastern cultural heritage 
-objects distributed across cultures, countries, and historical 
-periods in the MET Museum collection?
+### 1. Data Access
+- Downloaded the full MET Museum open access dataset (484,956 rows) 
+  from https://github.com/metmuseum/openaccess using pandas chunk 
+  loading in Jupyter Notebook
+- Tool: JupyterLab, pandas
+- Notebook: [notebooks/Met museum data.ipynb](notebooks/Met%20museum%20data.ipynb)
 
-**Specific aspects:**
+### 2. Selection / Sampling
+- Filtered the full dataset to three departments: Asian Art (37,000), 
+  Islamic Art (15,573), and Ancient Near Eastern Art (6,223)
+- Selected these departments because they are directly relevant to the 
+  research question about cultural distribution across Asia and the 
+  Islamic world
+- Dropped 9 redundant columns (internal IDs, duplicate URLs)
+- Result: 58,796 rows, 45 columns, 23.49 MB
+- Output file: [data/asian_islamic_neareastern_met.csv](data/asian_islamic_neareastern_met.csv)
 
-1. Which cultures are most represented in the collection?
-   - Answered by: `Culture` column
-   
-2. Which countries of origin appear most frequently?
-   - Answered by: `Country` column
-   
-3. How are objects distributed across historical periods?
-   - Answered by: `Period`, `Dynasty`, `Object Begin Date` columns
-   - Limitation: Period and Dynasty are empty for many objects and data is limited
-   
-4. What types of objects dominate the collection?
-   - Answered by: `Object Name`, `Classification` columns
-   
-5. What proportion of objects are in the public domain?
-   - Answered by: `Is Public Domain` column
+### 3. Cleaning / Preprocessing
+- Identified missing values per column using df.isna().mean()
+- Key gaps: Dynasty (100% missing), Artist information (82% missing),
+  Country (74% missing)
+- Decisions documented in notebook markdown cells
+- Output: [data/dataset_statistics.csv](data/dataset_statistics.csv)
+
+### 4. Enrichment / Linking
+- Not applicable at this stage
+- Future possibility: linking Culture field to external geographic 
+  data to map object origins more precisely
+
+### 5. Analysis
+- Will measure distribution of objects by Culture, Country, Period, 
+  and Object Type
+- Will compare representation across the three departments
+- Will analyse gaps in metadata completeness
+- Tool: pandas, planned notebook: 02_analysis.ipynb
+
+### 6. Visualisation
+- Will create bar charts of top cultures and countries
+- Will create timeline of objects by century
+- Will create table of missing value percentages by column
+- Tool: matplotlib or seaborn, planned notebook: 03_visualisation.ipynb
+
+### 7. Archiving & Sharing
+- All code and notebooks stored on GitHub (public repository)
+- Raw dataset described in README with source URL and license
+- Full CSV file kept locally and on OneDrive as backup
+- Statistics output saved to data/ folder
