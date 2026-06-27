@@ -112,3 +112,15 @@ periods in the MET Museum collection?
 - Raw dataset described in README with source URL and license
 - Full CSV file kept locally and on OneDrive as backup
 - Statistics output saved to data/ folder
+
+  ## Results
+- **02_transformation_analysis.ipynb**: Culture distribution analysis
+- **03_analysis.ipynb**: Period, country, completeness analysis
+
+## Key Findings
+- Japan & China: 64.5% of analyzed collection
+- Culture data: 71.6% complete
+- Country data: 25.5% complete (SEVERE GAP)
+- Period data: 56.2% complete
+
+See notebooks for full analysis and visualizations.
