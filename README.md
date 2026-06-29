@@ -20,13 +20,9 @@ historical periods in the MET Museum collection.
 **What has already been done to the data:**
 - Downloaded full MET dataset (484,956 rows) in chunks
 - Filtered to three departments: Asian Art, Islamic Art, Ancient Near Eastern Art
-- Dropped 9 redundant columns
+- Cleaned and validated for analysis
+- Preserved NULL values (honest data approach)
 - Saved as CSV (23.49 MB)
-
-**What is missing or uncertain:**
-- Period and Dynasty fields are empty for many objects
-- Country and Region fields inconsistently filled
-- Artist information missing for many objects
 
 ## Initial Research Steps (Reconstructed)
 1. Attempted Wikidata SPARQL — returned 502 errors (backend migration May 2026)
@@ -80,47 +76,180 @@ periods in the MET Museum collection?
   Islamic world
 - Dropped 9 redundant columns (internal IDs, duplicate URLs)
 - Result: 58,796 rows, 45 columns, 23.49 MB
-- Output file: [data/asian_islamic_neareastern_met.csv](data/asian_islamic_neareastern_met.csv)
+
+
+## Workflow
+
+The project follows a 7-stage reproducible workflow:
+
+### 1. Data Access
+- **Tool:** JupyterLab
+- **Task:** Downloaded full MET Museum open access dataset (484,956 rows)
+- **Output:** Raw CSV file
+
+### 2. Selection / Sampling
+- **Task:** Filtered to three relevant departments
+- **Rationale:** Direct relevance to research question about cultural distribution
+- **Output:** 58,796 rows × 45 columns
 
 ### 3. Cleaning / Preprocessing
-- Identified missing values per column using df.isna().mean()
-- Key gaps: Dynasty (100% missing), Artist information (82% missing),
-  Country (74% missing)
-- Decisions documented in notebook markdown cells
-- Output: [data/dataset_statistics.csv](data/dataset_statistics.csv)
+- **Task:** Identified missing values, handled inconsistencies
+- **Key Gaps Documented:**
+  - Dynasty: 100% missing
+  - Artist information: 82% missing
+  - Country: 74% missing
+  - Period: 43.8% missing
+- **Output:** `data/dataset_statistics.csv`
 
+### 4. Enrichment / Linking
+- **Status:** Not yet implemented
+- **Future Plan:** Link Culture field to external geographic data
+
+### 5. Analysis
+- **Tool:** Jupyter Notebooks
+- **Implemented in:**
+  - `02_transformation_analysis.ipynb` — Culture distribution
+  - `03_analysis.ipynb` — Period, Country, Department, Completeness
+
+### 6. Visualisation
+- **Outputs:**
+  - Bar charts (cultures, periods, countries)
+  - Missing data visualization
+  - Summary statistics table
+
+### 7. Archiving & Sharing
+- Code stored on GitHub (public repository)
+- Dataset described with source & license
+- All outputs in `/data` folder
+- Ready for Zenodo publication
+  
 ### 4. Enrichment / Linking
 - Not applicable at this stage
 - Future possibility: linking Culture field to external geographic
   data to map object origins more precisely
 
-### 5. Analysis
-- Will measure distribution of objects by Culture, Country, Period,
-  and Object Type
-- Will compare representation across the three departments
-- Will analyse gaps in metadata completeness
-- Tool: pandas, planned notebook: 02_analysis.ipynb
+  ---
 
-### 6. Visualisation
-- Will create bar charts of top cultures and countries
-- Will create timeline of objects by century
-- Will create table of missing value percentages by column
-- Tool: matplotlib or seaborn, planned notebook: 03_visualisation.ipynb
+## Analysis Notebooks
 
-### 7. Archiving & Sharing
-- All code and notebooks stored on GitHub (public repository)
-- Raw dataset described in README with source URL and license
-- Full CSV file kept locally and on OneDrive as backup
-- Statistics output saved to data/ folder
+### 02_transformation_analysis.ipynb
 
-  ## Results
-- **02_transformation_analysis.ipynb**: Culture distribution analysis
-- **03_analysis.ipynb**: Period, country, completeness analysis
+**Purpose:** Analyze cultural distribution in the MET dataset
 
-## Key Findings
-- Japan & China: 64.5% of analyzed collection
-- Culture data: 71.6% complete
-- Country data: 25.5% complete (SEVERE GAP)
-- Period data: 56.2% complete
+**What it does:**
+1. Loads cleaned CSV (58,796 objects)
+2. Filters to objects with recorded Culture (42,117 objects)
+3. Counts objects per culture
+4. Creates visualization of top 15 cultures
+5. Documents findings and limitations
 
-See notebooks for full analysis and visualizations.
+**Key Findings:**
+- **Japan dominates:** 16,937 objects (40.2% of analyzable collection)
+- **China second:** 13,502 objects (32.0%)
+- **Combined East Asian:** 30,439 objects (72.2% of collection)
+- **Reflects museum bias:** 19th-20th century Western collecting priorities
+
+**Data Quality:**
+- Culture completeness: **71.6%** (42,117/58,796 objects)
+- 28.3% lack culture information
+- NULL values preserved (not filled with placeholders)
+
+### 03_analysis.ipynb
+
+**Purpose:** Comprehensive analysis of Period, Country, Department, and data completeness
+
+#### Section 1: Period Analysis
+- **Question:** How are objects distributed across historical periods?
+- **Completeness:** 56.2% (33,072 objects with recorded period)
+- **Finding:** Objects span multiple periods; gaps vary by department
+- **Output:** `period_distribution.png`
+
+#### Section 2: Country Analysis
+- **Question:** Where do objects originate geographically?
+- **⚠️ SEVERE DATA GAP:** 25.5% complete (15,031 objects)
+- **Issue:** 74.4% of objects lack geographic origin
+- **Finding:** Country analysis severely limited by missing data
+
+#### Section 3: Department Comparison
+- **Breakdown:**
+  - Asian Art: 37,000 objects (62.9%)
+  - Islamic Art: 15,573 objects (26.5%)
+  - Ancient Near Eastern Art: 6,223 objects (10.6%)
+- **Finding:** Different completeness levels across departments
+
+#### Section 4: Data Completeness Analysis
+- Visual breakdown of missing data by field
+- Summary table of completeness percentages
+- **Output:** `missing_data_overview.png`, `data_completeness_summary.csv`
+
+#### Section 5: Key Findings & Conclusions
+- Synthesizes all findings
+- Documents limitations for reproducibility
+- Explains museum collecting bias
+
+
+## Key Research Findings
+
+### 1. Cultural Distribution
+- Japanese & Chinese cultures dominate (64.5% of analyzable collection)
+- Reflects 19th-20th century European/American collecting priorities
+-  South Asian, Islamic, Near Eastern vastly underrepresented
+-   8.3% of collection lacks culture attribution
+
+### 2. Temporal Coverage
+- Objects span multiple historical periods  
+- 43.8% lack period information  
+- Only 56.2% analyzable by time period
+
+### 3. Geographic Coverage
+-**SEVERE DATA GAP:** Only 25.5% have country recorded  
+-74.4% of objects lack geographic origin  
+-Country-based analysis highly limited
+
+### 4. Data Quality & Transparency
+- HIGHLY VARIABLE completeness across fields  
+- Core research metadata (Culture/Country/Period) incomplete  
+- Cleaned dataset preserves NULL values (honest approach)  
+- all limitations explicitly documented
+
+---
+
+## Important Context
+
+### What This Dataset Shows
+- Museum collecting priorities and institutional bias
+- What the MET chose to acquire and document
+- 19th-20th century Western focus on East Asian art
+
+### What This Dataset Does NOT Show
+- Complete or representative sample of global cultural heritage
+- Actual distribution of cultural production globally
+- Equal representation of all cultures and time periods
+
+### Museum Collecting Bias
+The dominance of Japanese & Chinese objects reflects institutional collecting history, not cultural significance or production. This is a key finding demonstrating how museums encode historical biases into their collections.
+
+---
+
+## Research Notes
+
+### Known Limitations
+- Period and Dynasty fields are empty for many objects
+- Country and Region fields inconsistently filled
+- Artist information missing for 82% of objects
+- Results reflect museum bias, not global cultural distribution
+
+
+## Reproducibility
+
+### To Reproduce This Analysis
+1. Clone this GitHub repository
+2. Download the cleaned CSV from `/data` folder
+3. Run `02_transformation_analysis.ipynb` (requires pandas, matplotlib)
+4. Run `03_analysis.ipynb` (requires pandas, matplotlib, numpy)
+5. All outputs will be saved to `/data` folder
+
+
+
+
+
