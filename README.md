@@ -16,6 +16,7 @@ historical periods in the MET Museum collection.
 **License:** CC0 — No Rights Reserved  
 **Description:** Collection metadata for Asian Art, Islamic Art and Ancient Near Eastern Art. 58,796 rows, 45 columns, 23.49 MB.  
 **File:** [asian_islamic_neareastern_met.csv](data/asian_islamic_neareastern_met.csv)
+File post cleaning: https://github.com/nandinikapoor102002-lab/My-first-Github-project/blob/main/data/asian_islamic_neareastern_met_CLEANED.csv 
 
 **What has already been done to the data:**
 - Downloaded full MET dataset (484,956 rows) in chunks
