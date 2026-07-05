@@ -66,7 +66,7 @@ periods in the MET Museum collection?
 - Downloaded the full MET Museum open access dataset (484,956 rows)
   from https://github.com/metmuseum/openaccess using pandas chunk
   loading in Jupyter Notebook
-- Tool: JupyterLab
+- Tool: JupyterLab , pandas , python , visual studio
 - Notebook: [notebooks/Met museum data.ipynb](notebooks/Met%20museum%20data.ipynb)
 
 ### 2. Selection / Sampling
