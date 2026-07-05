@@ -155,40 +155,6 @@ The project follows a 7-stage reproducible workflow:
 - 28.3% lack culture information
 - NULL values preserved (not filled with placeholders)
 
-### 03_analysis.ipynb
-
-**Purpose:** Comprehensive analysis of Period, Country, Department, and data completeness
-
-#### Section 1: Period Analysis
-- **Question:** How are objects distributed across historical periods?
-- **Completeness:** 56.2% (33,072 objects with recorded period)
-- **Finding:** Objects span multiple periods; gaps vary by department
-- **Output:** `period_distribution.png`
-
-#### Section 2: Country Analysis
-- **Question:** Where do objects originate geographically?
-- **⚠️ SEVERE DATA GAP:** 25.5% complete (15,031 objects)
-- **Issue:** 74.4% of objects lack geographic origin
-- **Finding:** Country analysis severely limited by missing data
-
-#### Section 3: Department Comparison
-- **Breakdown:**
-  - Asian Art: 37,000 objects (62.9%)
-  - Islamic Art: 15,573 objects (26.5%)
-  - Ancient Near Eastern Art: 6,223 objects (10.6%)
-- **Finding:** Different completeness levels across departments
-
-#### Section 4: Data Completeness Analysis
-- Visual breakdown of missing data by field
-- Summary table of completeness percentages
-- **Output:** `missing_data_overview.png`, `data_completeness_summary.csv`
-
-#### Section 5: Key Findings & Conclusions
-- Synthesizes all findings
-- Documents limitations for reproducibility
-- Explains museum collecting bias
-
-
 ## Key Research Findings
 
 ### 1. Cultural Distribution
@@ -247,8 +213,7 @@ The dominance of Japanese & Chinese objects reflects institutional collecting hi
 1. Clone this GitHub repository
 2. Download the cleaned CSV from `/data` folder
 3. Run `02_transformation_analysis.ipynb` (requires pandas, matplotlib)
-4. Run `03_analysis.ipynb` (requires pandas, matplotlib, numpy)
-5. All outputs will be saved to `/data` folder
+4. All outputs will be saved to `/data` folder
 
 
 
